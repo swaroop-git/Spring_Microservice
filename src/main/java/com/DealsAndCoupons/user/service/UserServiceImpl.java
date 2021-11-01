@@ -40,7 +40,6 @@ public class UserServiceImpl implements UserService{
     public User deleteUserById(String _id) {
         // TODO Auto-generated method stub
         userRepository.deleteById(_id);
-        ;
         return null;
     }
 

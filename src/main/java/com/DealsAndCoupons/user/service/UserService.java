@@ -15,7 +15,7 @@ public interface UserService {
 
     public  User fetchuserById(String _id);
 
-    public User deleteUserById(String _id);
+    public String deleteUserById(String _id);
 
     public User updateUserById(String _id, User user);
 

@@ -32,34 +32,40 @@ class UserServiceTest {
     @MockBean
     private UserRepository userRepository;
 
-    @BeforeEach
-    void setUp() {
-        User user =
-                User.builder()
-                        ._id("1")
-                        .name("swaroop")
-                        .email("swaroop@gmail.com")
-                        .build();
-
-        when(userRepository.findById("1"))
-                .thenReturn(java.util.Optional.ofNullable(user));
-    }
+//    @BeforeEach
+//    void setUp() {
+//        User user =
+//                User.builder()
+//                        ._id("2")
+//                        .name("swaroop")
+//                        .email("swaroop@gmail.com")
+//                        .build();
+//
+//        when(userRepository.findById("2"))
+//                .thenReturn(java.util.Optional.ofNullable(user));
+//    }
 
     UserServiceImpl userServiceImplMock = mock(UserServiceImpl.class);
 
     @Test
-    @DisplayName("Get Data based on Valid User Id")
+    @DisplayName("Test for getting user by Id")
     public void whenValidUserId_thenUserShouldFound(){
-        String userId = "1";
-        User found =
-                userService.fetchuserById(userId);
+//        String userId = "2";
+        User user1 = new User();
+        user1.set_id("1");
+        user1.setName("susu Rastogi");
+        user1.setEmail("susu@gmail.com");
+//        User found =
+//                userService.fetchuserById("1");
+        when(userServiceImplMock.fetchuserById("1"))
+               .thenReturn(user1);
 
-        assertEquals(userId, found.get_id());
+        assertEquals(user1,userServiceImplMock.fetchuserById("1"));
     }
 
 
     @Test
-    @DisplayName("post Data based on Valid User Id")
+    @DisplayName("Test for posting user by Id")
     public void postuser(){
 
         User user = new User();
@@ -126,36 +132,45 @@ class UserServiceTest {
         user.setName("Raju Rastogi");
         user.setEmail("Raju@gmail.com");
 
-        when(userServiceImplMock.deleteUserById("1")).thenReturn(null);
-        assertEquals(null, userServiceImplMock.deleteUserById("1"));
+        when(userServiceImplMock.deleteUserById("1")).thenReturn("user deleted");
+        assertEquals("user deleted", userServiceImplMock.deleteUserById("1"));
     }
 
 
 
+    @Test
+    @DisplayName("Test for updating user")
+    public void updateUserTest(){
+
+        User user = new User();
+        user.set_id("1");
+        user.setName("Raju Rastogi");
+        user.setEmail("Raju@gmail.com");
 
 
-//    @Test
-//    @DisplayName("update Data based on Valid User Id")
-//    public void updateUserTest() {
-//
-//
-//        String name = "swaroop";
-//
-//        User Updateduser = new User();
-//        Updateduser.setName("Ramesh");
-//
-////        UserService model = (UserService) userRepository.findById("1").get();
-////        model.fetchuser();
-//
-////        when(userService.updateUserById("1",User Updateduser)).thenReturn(Updateduser);
-//
-//
-////        User update =
-////                userService.updateUserById("1",user);
-//        assertEquals(Updateduser, name ,"name updated");
-//
-//
-//    }
+        User user1 = new User();
+//        user1.set_id("1");
+        user1.setName("farhan");
+        user1.setEmail("farhan@gmail.com");
+
+        User user2 = new User();
+
+        user2.set_id("1");
+        user2.setName("farhan");
+        user2.setEmail("farhan@gmail.com");
+
+
+        User user3 = new User();
+
+        user3.set_id("3");
+        user3.setName("farhan");
+        user3.setEmail("farhan@gmail.com");
+
+
+        when(userServiceImplMock.updateUserById("1",user1)).thenReturn(user2);
+        assertEquals(user2, userServiceImplMock.updateUserById("1",user1));
+    }
+
 
 
 
